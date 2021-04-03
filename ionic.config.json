@@ -1,0 +1,7 @@
+{
+  "name": "HETS",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
