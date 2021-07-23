@@ -1,27 +1,60 @@
-#container {
-  text-align: center;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.container {
+  // --background: url("https://c1.wallpaperflare.com/preview/610/200/858/refugees-economic-migrants-financial-equalization-help.jpg") no-repeat center center fixed;
+  .logo {
+    font-family: 'Dela Gothic One', cursive;
+  }
+  .title {
+    height: 50%;
+    .header {
+      margin: 10% 10% 0 10%;
+      margin-bottom: 0px;
+      text-align: justify;
+      font-size: xx-large;
+      line-height: 2;
+    }
+    .content {
+      margin: 0 0 0 10%;
+      text-align: left;
+      font-size: 40px;
+      font-family: 'Noto Serif', serif;
+      color: var(--ion-color-danger);
+      font-style: italic;
+      .text {
+        font-size: large;
+      }
+    }
+    .subtitle {
+      font-family: 'Poppins', sans-serif;
+      font-size: large;
+      margin: 5% 10%;
+    }
+  }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+/*
+
+.container {
+  --ion-background-color: darkturquoise;
+  //--background: url('C:/Users/MSSVARMA06/my_projects/Android/HETS/images/wallpaper_home.jpg') no-repeat center center fixed;
+  //background-size: cover;
+  .text-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 100%;
+    line-height: 1.5;
+    padding-left: 5%;
+    .text1 {
+      font-size: 50px;
+      font-family: 'Lobster', cursive;
+    }
+    .text2 {
+      font-size: 56px;
+      color: indigo;
+      font-family: 'Anton', sans-serif;
+    }
+  }
 }
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
-}
+*/

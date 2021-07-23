@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar  mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Transactions</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onCreateLog()">
+        <ion-icon name="add" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment
+    value="all"
+    (ionChange)="onFilterUpdate($event)"
+    style="padding: 2%;"
+  >
+    <ion-segment-button value="all">All Logs</ion-segment-button>
+    <ion-segment-button value="expenses">Expenses</ion-segment-button>
+    <ion-segment-button value="incomes">Incomes</ion-segment-button>
+  </ion-segment>
+
+  <ion-grid size-sm="6">
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Order By</ion-label>
+          <ion-select [(ngModel)]="orderType" (ionChange)="onOrderUpdate($event)">
+            <ion-select-option  value="created">Created Time</ion-select-option>
+            <ion-select-option  value="oldest">Oldest First</ion-select-option>
+            <ion-select-option value="newest">Newest First</ion-select-option>
+            <ion-select-option value="alphabetic">A-Z</ion-select-option>
+            <ion-select-option value="dept">Department</ion-select-option>
+            <ion-select-option value="amount">Amount</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <div *ngIf="!recordList" style="text-align: center; font-size: large;">
+        <p>Currently there are no records. Please add one and try again!!</p>
+      </div>
+      <div style="margin: auto auto" color="primary">
+        <ion-spinner color="primary" *ngIf="recordList && recordList.length === 0"></ion-spinner>
+      </div>
+      <ion-col *ngIf="recordList.length > 0" style="text-align: center;">
+       <ion-list>
+        <ion-item-sliding *ngFor="let record of recordList" #slideEl>
+          <ion-item detail (click)="onClickItem(record.id, slideEl)">
+            <ion-label detail>
+              <ion-title class="log-header">{{ record.department }}</ion-title>
+              <div class="log-subtitles">
+                <ion-text>{{ record.date | date }}</ion-text>
+                <ion-text>{{ record.logType }}</ion-text>
+              </div>
+              <div class="log-details">
+                <ion-text color="tertiary">{{ record.entry }}</ion-text>
+                <ion-text color="tertiary">{{ record.value | currency }}</ion-text>
+              </div>
+            </ion-label>
+          </ion-item>
+          <ion-item-options>
+            <ion-item-option color="tertiary" (click)="onEdit(record.id, slideEl)">
+              <ion-icon name="create" slot="icon-only"></ion-icon>
+            </ion-item-option>
+            <ion-item-option color="danger" (click)="onDelete(record.id, slideEl)">
+              <ion-icon name="trash" slot="icon-only"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+       </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

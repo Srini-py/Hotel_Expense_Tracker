@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>charts</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-card>
+      <ion-card-content>
+        <div id="pieChart1"></div>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-content>
+        <div id="pieChart2"></div>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-content>
+        <div id="LineChart1"></div>
+        <div style="display: flex; justify-content: center; margin-top: 5%;">
+          <ion-item style="color: rgb(255, 255, 255); --ion-background-color: #5547a1; width: 75%; border-radius: 5px;">
+            <ion-label><ion-icon name="caret-down" slot="icon-only" style="padding-right: 2%;"></ion-icon>Select Year</ion-label>
+            <ion-datetime pickerFormat="YYYY" displayFormat="YYYY" [(ngModel)]="year1" [ngModelOptions]="{standalone: true}" (ionChange)="onChange($event)"></ion-datetime>
+          </ion-item>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-content>
+        <div id="LineChart2"></div>
+        <div style="display: flex; justify-content: center; margin-top: 5%;">
+          <ion-item style="color: rgb(255, 255, 255); --ion-background-color: #5547a1; width: 75%; border-radius: 5px;">
+            <ion-label><ion-icon name="caret-down" slot="icon-only" style="padding-right: 2%;"></ion-icon>Select Year</ion-label>
+            <ion-datetime pickerFormat="YYYY" displayFormat="YYYY" [(ngModel)]="year2" [ngModelOptions]="{standalone: true}" (ionChange)="onChangeExpense($event)"></ion-datetime>
+          </ion-item>
+        </div>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-content>
+        <div id="LineChart3"></div>
+        <div style="display: flex; justify-content: center; margin-top: 5%;">
+          <ion-item style="color: rgb(255, 255, 255); --ion-background-color: #5547a1; width: 75%; border-radius: 5px;">
+            <ion-label><ion-icon name="caret-down" slot="icon-only" style="padding-right: 2%;"></ion-icon>Select Year</ion-label>
+            <ion-datetime pickerFormat="YYYY" displayFormat="YYYY" [(ngModel)]="year3" [ngModelOptions]="{standalone: true}" (ionChange)="onChangeIncome($event)"></ion-datetime>
+          </ion-item>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

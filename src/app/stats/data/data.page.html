@@ -1,0 +1,279 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Statistics</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="text-align: center;" *ngIf="!logList">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+
+
+  <ion-grid *ngIf="logList.length > 0">
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-title style="text-align: center; margin-top: 10%;">Individual Statistics</ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-card style="--ion-background-color: rgb(243, 242, 204); margin: 2% 3% 0 3%;">
+          <ion-item style="margin: 5% 2% 2% 2%;">
+            <ion-label position='floating'>Expense on Date</ion-label>
+            <ion-datetime pickerFormat="DD-MM-YYYY" displayFormat="MMM-DD-YYYY" [(ngModel)]="dt" [ngModelOptions]="{standalone: true}" (ionChange)="onChangeDate1($event)"></ion-datetime>
+            <ion-text slot="end" color="warning">{{ expenseDate | currency }}</ion-text>
+          </ion-item>
+          <ion-item style="margin: 0 2% 2% 2%;">
+            <ion-label position='floating'>Income on Date</ion-label>
+            <ion-datetime pickerFormat="DD-MM-YYYY" displayFormat="MMM-DD-YYYY" [(ngModel)]="dt2" [ngModelOptions]="{standalone: true}" (ionChange)="onChangeDate2($event)"></ion-datetime>
+            <ion-text slot="end" color="success">{{ incomeDate | currency }}</ion-text>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-card style="--ion-background-color: rgb(243, 242, 204); margin: 2% 3% 0 3%;">
+          <ion-item style="margin: 5% 2% 2% 2%;">
+            <ion-label position='floating'>Expense on Month</ion-label>
+            <ion-datetime pickerFormat="MM-YYYY" displayFormat="MMM-YYYY" [(ngModel)]="mt" [ngModelOptions]="{standalone: true}" (ionChange)="onChangeMonth1($event)"></ion-datetime>
+            <ion-text slot="end" color="warning">{{ expenseMonth | currency }}</ion-text>
+          </ion-item>
+          <ion-item style="margin: 0 2% 2% 2%;">
+            <ion-label position='floating'>Income on Month</ion-label>
+            <ion-datetime pickerFormat="MM-YYYY" displayFormat="MMM-YYYY" [(ngModel)]="mt2" [ngModelOptions]="{standalone: true}" (ionChange)="onChangeMonth2($event)"></ion-datetime>
+            <ion-text slot="end" color="success">{{ incomeMonth | currency }}</ion-text>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+       <ion-card style="--ion-background-color: rgb(243, 242, 204); margin: 2% 3% 0 3%;">
+        <ion-item style="margin: 5% 2% 2% 2%;">
+          <ion-label position='floating'>Expense on Year</ion-label>
+          <ion-datetime pickerFormat="YYYY" displayFormat="YYYY" [(ngModel)]="yr" [ngModelOptions]="{standalone: true}" (ionChange)="onChangeYear1($event)"></ion-datetime>
+          <ion-text slot="end" color="warning">{{ expenseYear | currency }}</ion-text>
+        </ion-item>
+        <ion-item style="margin: 0 2% 2% 2%;">
+          <ion-label position='floating'>Income on Year</ion-label>
+          <ion-datetime pickerFormat="YYYY" displayFormat="YYYY" [(ngModel)]="yr2" [ngModelOptions]="{standalone: true}" (ionChange)="onChangeYear2($event)"></ion-datetime>
+          <ion-text slot="end" color="success">{{ incomeYear | currency }}</ion-text>
+        </ion-item>
+       </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid *ngIf="logList.length > 0">
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-title style="text-align: center; margin-top: 10%;">Total Statistics</ion-title>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-card style="--ion-background-color: rgb(217, 241, 237); margin: 2% 3% 0 3%;">
+          <ion-list>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Total Expense till date </ion-text>
+              <ion-text slot="end" color="warning">{{ totExp | currency }}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Total Income till date </ion-text>
+              <ion-text slot="end" color="success">{{ totInc | currency }}</ion-text>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-card style="--ion-background-color: rgb(217, 241, 237); margin: 2% 3% 0 3%;">
+          <ion-list>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Total Expense in Front Desk Department</ion-text>
+              <ion-text slot="end" color="warning">{{ this.departmentExpense[0] | currency }}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Total Expense in Human Resource Department</ion-text>
+              <ion-text slot="end" color="warning">{{ this.departmentExpense[1] | currency }}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Total Expense in Purchase Department</ion-text>
+              <ion-text slot="end" color="warning">{{ this.departmentExpense[2] | currency }}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Total Expense in Sales & Marketing Department</ion-text>
+              <ion-text slot="end" color="warning">{{ this.departmentExpense[3] | currency }}</ion-text>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-card style="--ion-background-color: rgb(217, 241, 237); margin: 2% 3% 0 3%;">
+          <ion-list>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Total Income in Front Desk Department</ion-text>
+              <ion-text slot="end" color="success">{{ this.departmentIncome[0] | currency }}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Total Income in Human Resource Department</ion-text>
+              <ion-text slot="end" color="success">{{ this.departmentIncome[1] | currency }}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Total Income in Sales & Marketing Department</ion-text>
+              <ion-text slot="end" color="success">{{ this.departmentIncome[3] | currency }}</ion-text>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid *ngIf="logList.length > 0">
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-title style="text-align: center; margin-top: 10%;">Max & Min Statistics</ion-title>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-card style="--ion-background-color: rgb(217, 241, 237); margin: 2% 3% 0 3%;">
+          <ion-list>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Maximum expense till date </ion-text>
+              <ion-text slot="end" color="warning">{{ maxExp | currency}}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Minimum expense till date </ion-text>
+              <ion-text slot="end" color="warning">{{ minExp | currency}}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Maximum income till date </ion-text>
+              <ion-text slot="end" color="success">{{ maxInc | currency}}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Minimum income till date </ion-text>
+              <ion-text slot="end" color="success">{{ minInc | currency}}</ion-text>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-card style="--ion-background-color: rgb(217, 241, 237); margin: 2% 3% 0 3%;">
+          <ion-list>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Maximum expense in a day </ion-text>
+              <ion-text slot="end" color="warning">{{ maxDayExp | currency }}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Minimum expense in a day </ion-text>
+              <ion-text slot="end" color="warning">{{ minDayExp | currency }}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Maximum income in a day </ion-text>
+              <ion-text slot="end" color="success">{{ maxDayInc | currency }}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Minimum income in a day </ion-text>
+              <ion-text slot="end" color="success">{{ minDayInc | currency }}</ion-text>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-card style="--ion-background-color: rgb(217, 241, 237); margin: 2% 3% 0 3%;">
+          <ion-list>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Maximum expense in a month </ion-text>
+              <ion-text slot="end" color="warning">{{ maxMonthExp | currency}}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Minimum expense in a month </ion-text>
+              <ion-text slot="end" color="warning">{{ minMonthExp | currency}}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Maximum income in a month </ion-text>
+              <ion-text slot="end" color="success">{{ maxMonthInc | currency}}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Minimum income in a month </ion-text>
+              <ion-text slot="end" color="success">{{ minMonthInc | currency}}</ion-text>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-card style="--ion-background-color: rgb(217, 241, 237); margin: 2% 3% 0 3%;">
+          <ion-list>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Maximum expense in a year </ion-text>
+              <ion-text slot="end" color="warning">{{ maxYearExp | currency}}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Minimum expense in a year </ion-text>
+              <ion-text slot="end" color="warning">{{ minYearExp | currency}}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Maximum income in a year </ion-text>
+              <ion-text slot="end" color="success">{{ maxYearInc | currency}}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 2% 2% 0;" lines="none">
+              <ion-text>Minimum income in a year </ion-text>
+              <ion-text slot="end" color="success">{{ minYearInc | currency}}</ion-text>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-card style="--ion-background-color: rgb(217, 241, 237); margin: 2% 3% 0 3%;">
+          <ion-list>
+            <ion-item style="margin: 0 1% 2% 0;" lines="none">
+              <ion-text>Max expensive department </ion-text>
+              <ion-text slot="end" color="warning">{{ maxExpensiveDept }}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 1% 2% 0;" lines="none">
+              <ion-text>Min expensive department </ion-text>
+              <ion-text slot="end" color="warning">{{ minExpensiveDept }}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 1% 2% 0;" lines="none">
+              <ion-text>Max earned department </ion-text>
+              <ion-text slot="end" color="success">{{ maxEarnedDept }}</ion-text>
+            </ion-item>
+            <ion-item style="margin: 0 1% 2% 0;" lines="none">
+              <ion-text>Min earned department </ion-text>
+              <ion-text slot="end" color="success">{{ minEarnedDept }}</ion-text>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

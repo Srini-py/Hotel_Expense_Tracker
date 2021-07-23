@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/logs"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit Log</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="onEditLog()" [disabled]="!f.valid">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="text-align: center;" *ngIf="!record">
+    <ion-spinner color="primary"></ion-spinner>
+  </div>
+  <form #f="ngForm">
+    <ion-grid *ngIf="record">
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Date</ion-label>
+            <ion-datetime displayFormat="MMM DD YYYY" pickerFormat="DD MMM YY" [(ngModel)]="dt" name="date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Select Department</ion-label>
+            <ion-select [(ngModel)]="record.department" name="dept">
+              <ion-select-option value="Front Desk Department">Front Desk Department</ion-select-option>
+              <ion-select-option value="Human Resource Department">Human Resource Department</ion-select-option>
+              <ion-select-option value="Sales & Marketing Department">Sales & Marketing Department</ion-select-option>
+              <ion-select-option value="Purchase Department">Purchase Department</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Select Log Type</ion-label>
+            <ion-select [(ngModel)]="record.logType" name="lg">
+              <ion-select-option value="Expense">Expense</ion-select-option>
+              <ion-select-option value="Income">Income</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Name of the entry: </ion-label>
+            <ion-input type="text" [(ngModel)]="record.entry" name="expenseName"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Value of the entry: </ion-label>
+            <ion-input type="number" [(ngModel)]="record.value" name="expenseValue"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
